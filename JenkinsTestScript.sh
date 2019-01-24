@@ -18,4 +18,4 @@ cp test ../docker
 ##############################
 cd ../docker
 docker build -t dockertest .
-docker run -ti dockertest ./startup.sh
+docker run dockertest ./startup.sh
