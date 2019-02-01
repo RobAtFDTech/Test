@@ -28,15 +28,11 @@ if [ $? -eq 0 ]
 then
 	echo "docker script returned OK"
 else
-	echo "docker script reported a failure, result: $?"
+	echo "docker script reported a failure"
 	return=1
 fi
 
 # Post Run
 ##############################
-
-
-
-
 
 exit $return
