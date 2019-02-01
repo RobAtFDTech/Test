@@ -1,5 +1,5 @@
 #!/bin/sh -x
-
+result=0
 # Build
 ##############################
 rm -rf build
@@ -29,8 +29,14 @@ then
 	echo "docker script returned OK"
 else
 	echo "docker script reported a failure, return: $?"
+	return=$?
 fi
 
 # Post Run
 ##############################
 
+
+
+
+
+exit $return
