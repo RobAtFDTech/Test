@@ -7,7 +7,7 @@ MAINTAINER rv
 COPY startup.sh /
 RUN chmod 775 startup.sh
 
-ADD . /testFolder
+ADD testFolder /testFolder
 RUN chmod -R 775 /testFolder
 
 
