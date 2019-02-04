@@ -12,7 +12,7 @@ struct testOutput {
 
 };
 
-int main()
+int main(int argc, char *argv[])
 {
     using namespace std;
     testOutput to = {0, 1.234f, ""};

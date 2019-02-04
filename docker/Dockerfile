@@ -2,8 +2,11 @@
 FROM ubuntu:latest
 MAINTAINER rv
 
-# install stuff
+# parameter test
+ARG test
+RUN echo $test
 
+# install stuff
 COPY startup.sh /
 RUN chmod 775 startup.sh
 

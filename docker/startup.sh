@@ -1,11 +1,12 @@
 #!/bin/sh
-
 result=0
 
 # Run the application
 echo "Run application"
 cd /testFolder
+echo "### TESTED APPLICATION #####################################################################"
 ./test
+echo "############################################################################################"
 if [ $? -ne 0 ]
 then
 echo "Test application FAIL - exiting"

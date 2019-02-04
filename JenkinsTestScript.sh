@@ -1,6 +1,6 @@
-#!/bin/sh -x
+#!/bin/sh 
 result=0
-# Build
+# Build application
 ##############################
 rm -rf build
 mkdir build
@@ -17,22 +17,33 @@ mkdir $deploy
 cp build/test $deploy
 cp testing/expected.log $deploy
 
-# Run
+# Build docker image
 ##############################
 cd docker
-docker build -t dockertest .
-#docker run -ti dockertest
-
-docker run dockertest ./startup.sh
+dockerArg="first"
+dockerImage=dockertest_$dockerArg
+docker build --build-arg test=$dockerArg -t $dockerImage .
 if [ $? -eq 0 ]
 then
-	echo "docker script returned OK"
+	echo "docker build $dockerImage returned OK"
 else
-	echo "docker script reported a failure"
-	return=1
+	echo "docker build $dockerImage reported a failure"
+	result=1
+fi
+
+# Run
+##############################
+
+docker run $dockerImage ./startup.sh
+if [ $? -eq 0 ]
+then
+	echo "docker run $dockerImage returned OK"
+else
+	echo "docker run $dockerImage reported a failure"
+	result=1
 fi
 
 # Post Run
 ##############################
 
-exit $return
+exit $result
