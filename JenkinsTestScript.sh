@@ -17,11 +17,12 @@ mkdir $deploy
 cp build/test $deploy
 cp testing/expected.log $deploy
 
+
 # Build docker image
 ##############################
 cd docker
 dockerArg="first"
-dockerImage=dockertest_$dockerArg
+dockerImage=dockertest
 docker build --build-arg test=$dockerArg -t $dockerImage .
 if [ $? -eq 0 ]
 then
@@ -33,17 +34,36 @@ fi
 
 # Run
 ##############################
+for index in `seq 1 1`;
+do
+	docker run $dockerImage ./startup.sh $index &
+	if [ $? -eq 0 ]
+	then
+		echo "docker run $dockerImage::$index started OK"
+	else
+		echo "docker run $$dockerImage::$index reported a failure"
+		result=1
+	fi
+done
 
-docker run $dockerImage ./startup.sh
-if [ $? -eq 0 ]
-then
-	echo "docker run $dockerImage returned OK"
-else
-	echo "docker run $dockerImage reported a failure"
-	result=1
-fi
+while :
+do	
+	if [ ! "$(docker ps -q -f name=$dockerImage)" ]; then
+		echo "docker run complete"
+		break
+	fi
+	sleep 0.5
+done 
 
 # Post Run
 ##############################
 
+
+
+
+
+echo "End Script"
 exit $result
+
+
+

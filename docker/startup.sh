@@ -1,30 +1,26 @@
 #!/bin/sh
-result=0
+
+input=$1
+app=test
 
 # Run the application
-echo "Run application"
 cd /testFolder
-echo "### TESTED APPLICATION #####################################################################"
-./test
-echo "############################################################################################"
+./$app $input
 if [ $? -ne 0 ]
 then
-echo "Test application FAIL - exiting"
-result=1
-exit $result
+	echo "Test application FAIL - exiting"
+	exit 1
 fi
 
 # Compare the actual results to the expected results
-echo "Compare results"
 diff=$(diff -y -W 72 test.log expected.log)
 if [ $? -eq 0 ]
 then
-        echo "Compare is OK"
+        echo "Compare for $app::$input is OK"
 else
-	echo "Compare is NOT OK"
-	result=1
+	echo "Compare for $app::$input NOT OK"
         echo "$diff"
-	exit $result
+	exit 1
 fi
 
 exit 0
