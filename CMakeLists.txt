@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.0)
-project(test)
+project(TestApp)
 
 set (CMAKE_CXX_STANDARD 14)
 set (Wall)
@@ -9,6 +9,6 @@ set (Wfloat-conversion)
 file(GLOB SOURCES
     main.cpp)
 
-add_executable(test ${SOURCES} )
-target_compile_options(test PUBLIC)
+add_executable(TestApp ${SOURCES} )
+target_compile_options(TestApp PUBLIC)
 

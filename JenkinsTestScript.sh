@@ -14,7 +14,7 @@ cd ..
 deploy="docker/testFolder"
 rm -rf $deploy
 mkdir $deploy
-cp build/test $deploy
+cp build/TestApp $deploy
 cp testing/expected.log $deploy
 
 # Build docker image
